@@ -1,0 +1,1456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>FlowTrip Ethiopia</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+:root{
+
+--bg:#F8FAFC;
+--white:#ffffff;
+
+--text-1:#0F172A;
+--text-2:#475569;
+--text-3:#94A3B8;
+
+--blue:#2563EB;
+--green:#16A34A;
+--orange:#EA580C;
+
+--coffee:#7C4A2D;
+--sand:#D6B98C;
+--earth:#8B5E3C;
+
+--border:rgba(15,23,42,0.08);
+
+--shadow-sm:0 1px 3px rgba(0,0,0,0.06);
+--shadow-md:0 8px 24px rgba(0,0,0,0.08);
+--shadow-lg:0 24px 60px rgba(0,0,0,0.12);
+
+--r-sm:12px;
+--r-md:18px;
+--r-lg:28px;
+--r-xl:36px;
+}
+
+html{
+scroll-behavior:smooth;
+}
+
+body{
+font-family:'DM Sans',sans-serif;
+background:var(--bg);
+color:var(--text-1);
+overflow-x:hidden;
+line-height:1.5;
+}
+
+/* GLOBAL */
+
+button,
+.dest-card,
+.feature-card,
+.test-card,
+.trip-card{
+transition:
+transform .3s ease,
+box-shadow .3s ease,
+background .3s ease;
+}
+
+/* NAV */
+
+nav{
+position:fixed;
+top:0;
+left:0;
+right:0;
+height:74px;
+padding:0 48px;
+display:flex;
+align-items:center;
+justify-content:space-between;
+z-index:999;
+background:rgba(248,250,252,0.82);
+backdrop-filter:blur(20px);
+border-bottom:1px solid transparent;
+transition:all .3s ease;
+}
+
+.nav-scrolled{
+box-shadow:0 10px 40px rgba(0,0,0,0.06);
+border-bottom:1px solid var(--border);
+}
+
+.nav-logo{
+display:flex;
+align-items:center;
+gap:10px;
+text-decoration:none;
+}
+
+.logo-box{
+width:40px;
+height:40px;
+border-radius:14px;
+background:linear-gradient(135deg,var(--blue),var(--green));
+display:flex;
+align-items:center;
+justify-content:center;
+color:white;
+font-weight:700;
+font-family:'Syne',sans-serif;
+}
+
+.logo-text{
+font-family:'Syne',sans-serif;
+font-size:20px;
+font-weight:800;
+letter-spacing:-0.5px;
+color:var(--text-1);
+}
+
+.nav-links{
+display:flex;
+gap:32px;
+list-style:none;
+}
+
+.nav-links a{
+text-decoration:none;
+font-size:14px;
+font-weight:500;
+color:var(--text-2);
+transition:.2s;
+}
+
+.nav-links a:hover{
+color:var(--blue);
+}
+
+.nav-actions{
+display:flex;
+gap:12px;
+}
+
+.btn{
+border:none;
+cursor:pointer;
+font-family:'DM Sans',sans-serif;
+transition:.25s ease;
+}
+
+.btn-outline{
+padding:10px 18px;
+border-radius:14px;
+background:white;
+border:1px solid var(--border);
+font-weight:500;
+}
+
+.btn-outline:hover{
+transform:translateY(-2px);
+}
+
+.btn-primary{
+padding:10px 20px;
+border-radius:14px;
+background:var(--blue);
+color:white;
+font-weight:600;
+box-shadow:0 8px 24px rgba(37,99,235,0.3);
+}
+
+.btn-primary:hover{
+transform:translateY(-2px);
+background:#1D4ED8;
+}
+
+/* HERO */
+
+.hero{
+min-height:100vh;
+padding:140px 48px 90px;
+display:flex;
+align-items:center;
+justify-content:center;
+position:relative;
+overflow:hidden;
+}
+
+.hero::before{
+content:'';
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at top left, rgba(37,99,235,0.12), transparent 40%),
+radial-gradient(circle at bottom right, rgba(22,163,74,0.08), transparent 35%);
+pointer-events:none;
+}
+
+.hero-inner{
+max-width:1200px;
+width:100%;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:70px;
+align-items:center;
+position:relative;
+z-index:2;
+}
+
+.hero-copy{
+max-width:600px;
+}
+
+.hero-badge{
+display:inline-flex;
+align-items:center;
+gap:10px;
+padding:10px 16px;
+border-radius:999px;
+background:white;
+border:1px solid var(--border);
+box-shadow:var(--shadow-sm);
+font-size:13px;
+font-weight:600;
+margin-bottom:26px;
+}
+
+.hero-title{
+font-family:'Syne',sans-serif;
+font-size:clamp(52px,7vw,82px);
+line-height:0.95;
+font-weight:800;
+letter-spacing:-3px;
+margin-bottom:24px;
+}
+
+.hero-title span{
+color:var(--blue);
+}
+
+.hero-sub{
+font-size:18px;
+color:var(--text-2);
+line-height:1.8;
+margin-bottom:34px;
+max-width:540px;
+}
+
+.hero-buttons{
+display:flex;
+gap:14px;
+margin-bottom:40px;
+flex-wrap:wrap;
+}
+
+.hero-stats{
+display:flex;
+gap:34px;
+flex-wrap:wrap;
+}
+
+.stat h3{
+font-family:'Syne',sans-serif;
+font-size:28px;
+font-weight:800;
+}
+
+.stat p{
+font-size:13px;
+color:var(--text-3);
+margin-top:2px;
+}
+
+/* HERO IMAGE */
+
+.hero-visual{
+position:relative;
+}
+
+.hero-image{
+width:100%;
+height:650px;
+border-radius:32px;
+object-fit:cover;
+box-shadow:var(--shadow-lg);
+}
+
+.glass-card{
+position:absolute;
+background:rgba(255,255,255,0.82);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,0.4);
+padding:18px;
+border-radius:22px;
+box-shadow:var(--shadow-md);
+}
+
+.gc-1{
+top:40px;
+left:-40px;
+}
+
+.gc-2{
+bottom:40px;
+right:-30px;
+}
+
+.glass-card h4{
+font-size:13px;
+margin-bottom:4px;
+color:var(--text-3);
+}
+
+.glass-card p{
+font-weight:700;
+font-size:16px;
+}
+
+/* TRUST BAR */
+
+.trust-bar{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:18px;
+padding:24px 48px 0;
+margin-top:-40px;
+position:relative;
+z-index:10;
+}
+
+.trust-item{
+background:white;
+border:1px solid var(--border);
+padding:22px;
+border-radius:22px;
+box-shadow:var(--shadow-sm);
+}
+
+.trust-item span{
+display:block;
+font-size:13px;
+color:var(--text-3);
+margin-bottom:6px;
+}
+
+.trust-item strong{
+font-size:17px;
+font-weight:700;
+}
+
+/* SECTION */
+
+section{
+padding:100px 48px;
+}
+
+.section-head{
+display:flex;
+justify-content:space-between;
+align-items:end;
+gap:24px;
+margin-bottom:44px;
+}
+
+.section-label{
+display:inline-flex;
+padding:8px 14px;
+border-radius:999px;
+background:#EEF2FF;
+color:var(--blue);
+font-size:12px;
+font-weight:700;
+margin-bottom:18px;
+}
+
+.section-title{
+font-family:'Syne',sans-serif;
+font-size:clamp(34px,5vw,54px);
+line-height:1.05;
+font-weight:800;
+letter-spacing:-2px;
+}
+
+.section-sub{
+margin-top:14px;
+max-width:620px;
+font-size:17px;
+line-height:1.8;
+color:var(--text-2);
+}
+
+/* FEATURES */
+
+.features-section{
+background:white;
+}
+
+.feature-grid{
+display:grid;
+grid-template-columns:repeat(2,1fr);
+gap:24px;
+}
+
+.feature-card{
+background:var(--bg);
+padding:34px;
+border-radius:28px;
+border:1px solid var(--border);
+}
+
+.feature-card:hover{
+transform:translateY(-6px);
+box-shadow:var(--shadow-md);
+}
+
+.feature-icon{
+font-size:34px;
+margin-bottom:20px;
+}
+
+.feature-card h3{
+font-size:22px;
+font-family:'Syne',sans-serif;
+margin-bottom:14px;
+}
+
+.feature-card p{
+color:var(--text-2);
+line-height:1.8;
+}
+
+/* APP PREVIEW */
+
+.app-preview{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:60px;
+align-items:center;
+}
+
+.preview-points{
+margin-top:30px;
+display:flex;
+flex-direction:column;
+gap:16px;
+font-weight:500;
+}
+
+.dashboard-card{
+background:#0F172A;
+border-radius:32px;
+padding:26px;
+color:white;
+box-shadow:var(--shadow-lg);
+}
+
+.dash-top{
+display:flex;
+gap:10px;
+margin-bottom:26px;
+}
+
+.dot{
+width:12px;
+height:12px;
+border-radius:50%;
+background:rgba(255,255,255,0.3);
+}
+
+.dash-content{
+display:flex;
+flex-direction:column;
+gap:18px;
+}
+
+.trip-card{
+background:rgba(255,255,255,0.06);
+padding:22px;
+border-radius:20px;
+backdrop-filter:blur(10px);
+}
+
+.trip-card:hover{
+transform:translateY(-4px);
+background:rgba(255,255,255,0.1);
+}
+
+.trip-card h4{
+font-size:18px;
+margin-bottom:8px;
+}
+
+.trip-card p{
+opacity:.75;
+font-size:14px;
+}
+
+/* DESTINATIONS */
+
+.dest-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:22px;
+}
+
+.dest-card{
+position:relative;
+overflow:hidden;
+border-radius:28px;
+height:520px;
+cursor:pointer;
+box-shadow:var(--shadow-sm);
+}
+
+.dest-card:hover{
+transform:translateY(-8px);
+box-shadow:var(--shadow-lg);
+}
+
+.dest-card img{
+width:100%;
+height:100%;
+object-fit:cover;
+transition:transform .6s ease;
+}
+
+.dest-card:hover img{
+transform:scale(1.08);
+}
+
+.dest-overlay{
+position:absolute;
+inset:0;
+background:linear-gradient(to top,
+rgba(0,0,0,0.82),
+rgba(0,0,0,0.18),
+transparent);
+}
+
+.dest-content{
+position:absolute;
+bottom:0;
+left:0;
+right:0;
+padding:24px;
+color:white;
+}
+
+.dest-tag{
+display:inline-block;
+padding:6px 12px;
+border-radius:999px;
+background:rgba(255,255,255,0.16);
+backdrop-filter:blur(10px);
+font-size:11px;
+font-weight:700;
+margin-bottom:14px;
+}
+
+.dest-title{
+font-family:'Syne',sans-serif;
+font-size:30px;
+font-weight:800;
+line-height:1;
+margin-bottom:10px;
+}
+
+.dest-sub{
+font-size:14px;
+line-height:1.6;
+opacity:.88;
+margin-bottom:18px;
+}
+
+.dest-price{
+display:flex;
+justify-content:space-between;
+align-items:end;
+}
+
+.dest-price small{
+font-size:12px;
+opacity:.7;
+}
+
+.dest-price strong{
+font-family:'Syne',sans-serif;
+font-size:26px;
+}
+
+/* TESTIMONIALS */
+
+.test-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:24px;
+}
+
+.test-card{
+background:white;
+padding:34px;
+border-radius:26px;
+border:1px solid var(--border);
+}
+
+.test-card:hover{
+transform:translateY(-6px);
+box-shadow:var(--shadow-md);
+}
+
+.stars{
+color:#FBBF24;
+font-size:18px;
+margin-bottom:18px;
+}
+
+.test-text{
+font-size:16px;
+line-height:1.9;
+color:var(--text-2);
+margin-bottom:24px;
+}
+
+.test-author{
+display:flex;
+align-items:center;
+gap:14px;
+}
+
+.avatar{
+width:48px;
+height:48px;
+border-radius:50%;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:700;
+background:#EFF6FF;
+color:var(--blue);
+}
+
+.test-name{
+font-weight:700;
+margin-bottom:3px;
+}
+
+.test-role{
+font-size:13px;
+color:var(--text-3);
+}
+
+/* FINAL CTA */
+
+.final-cta{
+padding-top:20px;
+}
+
+.cta-box{
+background:linear-gradient(135deg,#0F172A,#1E293B);
+border-radius:36px;
+padding:70px;
+text-align:center;
+color:white;
+position:relative;
+overflow:hidden;
+}
+
+.cta-box::before{
+content:'';
+position:absolute;
+inset:0;
+background:
+radial-gradient(circle at top left,
+rgba(37,99,235,0.3),
+transparent 30%);
+pointer-events:none;
+}
+
+.cta-box h2{
+font-family:'Syne',sans-serif;
+font-size:clamp(40px,5vw,64px);
+line-height:1;
+margin-bottom:20px;
+position:relative;
+z-index:2;
+}
+
+.cta-box p{
+max-width:620px;
+margin:0 auto 30px;
+font-size:18px;
+line-height:1.8;
+opacity:.8;
+position:relative;
+z-index:2;
+}
+
+.cta-box .hero-buttons{
+justify-content:center;
+position:relative;
+z-index:2;
+}
+
+/* FOOTER */
+
+footer{
+background:#0F172A;
+padding:70px 48px 40px;
+color:rgba(255,255,255,0.65);
+}
+
+.footer-top{
+display:grid;
+grid-template-columns:2fr 1fr 1fr 1fr;
+gap:50px;
+margin-bottom:50px;
+}
+
+.footer-title{
+color:white;
+font-weight:700;
+margin-bottom:18px;
+}
+
+.footer-links{
+list-style:none;
+display:flex;
+flex-direction:column;
+gap:12px;
+}
+
+.footer-links a{
+color:rgba(255,255,255,0.55);
+text-decoration:none;
+font-size:14px;
+transition:.2s;
+}
+
+.footer-links a:hover{
+color:white;
+}
+
+.footer-bottom{
+padding-top:26px;
+border-top:1px solid rgba(255,255,255,0.08);
+display:flex;
+justify-content:space-between;
+align-items:center;
+font-size:13px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:1100px){
+
+.hero-inner,
+.app-preview{
+grid-template-columns:1fr;
+}
+
+.dest-grid{
+grid-template-columns:repeat(2,1fr);
+}
+
+.test-grid{
+grid-template-columns:1fr;
+}
+
+.footer-top{
+grid-template-columns:1fr 1fr;
+}
+
+.trust-bar{
+grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+@media(max-width:768px){
+
+nav{
+padding:0 20px;
+}
+
+.nav-links{
+display:none;
+}
+
+.hero{
+padding:120px 20px 70px;
+}
+
+section{
+padding:80px 20px;
+}
+
+.dest-grid,
+.feature-grid,
+.trust-bar,
+.app-preview{
+grid-template-columns:1fr;
+}
+
+.footer-top{
+grid-template-columns:1fr;
+}
+
+.hero-title{
+font-size:56px;
+}
+
+.hero-image{
+height:500px;
+}
+
+.hero-stats{
+gap:20px;
+}
+
+.section-head{
+flex-direction:column;
+align-items:flex-start;
+}
+
+.cta-box{
+padding:40px 24px;
+}
+
+.dashboard-card{
+margin-top:20px;
+}
+
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- NAV -->
+
+<nav id="navbar">
+
+<a href="#" class="nav-logo">
+<div class="logo-box">F</div>
+<div class="logo-text">FlowTrip</div>
+</a>
+
+<ul class="nav-links">
+<li><a href="#">Explore</a></li>
+<li><a href="#">Destinations</a></li>
+<li><a href="#">Experiences</a></li>
+<li><a href="#">AI Planner</a></li>
+</ul>
+
+<div class="nav-actions">
+<button class="btn btn-outline">Sign in</button>
+<button class="btn btn-primary">Start planning</button>
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="hero">
+
+<div class="hero-inner">
+
+<div class="hero-copy">
+
+<div class="hero-badge">
+🇪🇹 Built for modern Ethiopian travel · Now in beta
+</div>
+
+<h1 class="hero-title">
+Explore Ethiopia <span>intelligently.</span>
+</h1>
+
+<p class="hero-sub">
+FlowTrip creates adaptive Ethiopian travel experiences —
+from Addis cafés and historic churches to remote mountain routes and hidden cultural gems.
+Smarter itineraries. Better movement. Real local intelligence.
+</p>
+
+<div class="hero-buttons">
+<button class="btn btn-primary">Start planning free</button>
+<button class="btn btn-outline">Watch demo</button>
+</div>
+
+<div class="hero-stats">
+
+<div class="stat">
+<h3>80K+</h3>
+<p>Trips planned</p>
+</div>
+
+<div class="stat">
+<h3>120+</h3>
+<p>Destinations covered</p>
+</div>
+
+<div class="stat">
+<h3>4.9★</h3>
+<p>User rating</p>
+</div>
+
+</div>
+
+</div>
+
+<div class="hero-visual">
+
+<img
+class="hero-image"
+src="https://images.unsplash.com/photo-1628771065518-0d82f1938462?q=80&w=1600&auto=format&fit=crop"
+alt="Ethiopia"
+/>
+
+<div class="glass-card gc-1">
+<h4>AI Suggested</h4>
+<p>Addis → Lalibela → Simien</p>
+</div>
+
+<div class="glass-card gc-2">
+<h4>Live Route Optimization</h4>
+<p>Travel time reduced by 3h</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TRUST -->
+
+<section class="trust-bar">
+
+<div class="trust-item">
+<span>Trusted by travelers from</span>
+<strong>Addis Ababa</strong>
+</div>
+
+<div class="trust-item">
+<span>Featured destinations</span>
+<strong>Lalibela · Axum · Bale</strong>
+</div>
+
+<div class="trust-item">
+<span>Average itinerary savings</span>
+<strong>32% faster planning</strong>
+</div>
+
+<div class="trust-item">
+<span>Local partners</span>
+<strong>140+ businesses</strong>
+</div>
+
+</section>
+
+<!-- FEATURES -->
+
+<section class="features-section">
+
+<div class="section-head">
+
+<div>
+
+<div class="section-label">
+⚡ AI Travel Intelligence
+</div>
+
+<h2 class="section-title">
+Travel planning that adapts in real time
+</h2>
+
+<p class="section-sub">
+FlowTrip uses live Ethiopian travel conditions,
+route intelligence, budget awareness,
+and local activity patterns to optimize every trip.
+</p>
+
+</div>
+
+</div>
+
+<div class="feature-grid">
+
+<div class="feature-card">
+<div class="feature-icon">🧠</div>
+<h3>Adaptive AI itineraries</h3>
+<p>
+Trips automatically adjust based on weather,
+transport conditions, timing, and preferences.
+</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">📍</div>
+<h3>Local discovery engine</h3>
+<p>
+Discover cafés, cultural spaces, viewpoints,
+and hidden experiences locals actually visit.
+</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">🚐</div>
+<h3>Transport optimization</h3>
+<p>
+Reduce unnecessary travel time between cities
+with smarter route sequencing.
+</p>
+</div>
+
+<div class="feature-card">
+<div class="feature-icon">💸</div>
+<h3>Budget-aware planning</h3>
+<p>
+Build experiences that fit your budget
+without sacrificing quality.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<!-- APP PREVIEW -->
+
+<section class="app-preview">
+
+<div class="preview-left">
+
+<div class="section-label">
+📱 Smart planning platform
+</div>
+
+<h2 class="section-title">
+Your entire Ethiopian trip in one intelligent dashboard
+</h2>
+
+<p class="section-sub">
+Flights, hotels, cafés, transportation,
+cultural sites, and schedules —
+organized automatically in one clean interface.
+</p>
+
+<div class="preview-points">
+
+<div>✓ Smart budget breakdowns</div>
+<div>✓ Live route updates</div>
+<div>✓ Local recommendations</div>
+<div>✓ Offline trip access</div>
+
+</div>
+
+</div>
+
+<div class="dashboard-card">
+
+<div class="dash-top">
+<div class="dot"></div>
+<div class="dot"></div>
+<div class="dot"></div>
+</div>
+
+<div class="dash-content">
+
+<div class="trip-card">
+<h4>Addis Weekend Plan</h4>
+<p>Cafés · Jazz bars · Museums</p>
+</div>
+
+<div class="trip-card">
+<h4>Lalibela Heritage Route</h4>
+<p>Churches · Guides · Hotels</p>
+</div>
+
+<div class="trip-card">
+<h4>Simien Hiking Expedition</h4>
+<p>Routes · Camps · Transport</p>
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- DESTINATIONS -->
+
+<section>
+
+<div class="section-head">
+
+<div>
+
+<div class="section-label">
+🇪🇹 Explore Ethiopia
+</div>
+
+<h2 class="section-title">
+Discover Ethiopia differently
+</h2>
+
+<p class="section-sub">
+From ancient heritage sites to dramatic landscapes and vibrant city life —
+FlowTrip helps you experience Ethiopia intelligently.
+</p>
+
+</div>
+
+</div>
+
+<div class="dest-grid">
+
+<div class="dest-card">
+
+<img src="https://images.unsplash.com/photo-1521295121783-8a321d551ad2?q=80&w=1200&auto=format&fit=crop">
+
+<div class="dest-overlay"></div>
+
+<div class="dest-content">
+
+<div class="dest-tag">CITY LIFE</div>
+
+<div class="dest-title">Addis Ababa</div>
+
+<div class="dest-sub">
+☕ Coffee culture · Live music · Museums
+</div>
+
+<div class="dest-price">
+<small>starting from</small>
+<strong>ETB 18,500</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="dest-card">
+
+<img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?q=80&w=1200&auto=format&fit=crop">
+
+<div class="dest-overlay"></div>
+
+<div class="dest-content">
+
+<div class="dest-tag">HERITAGE</div>
+
+<div class="dest-title">Lalibela</div>
+
+<div class="dest-sub">
+⛪ Rock-hewn churches · Heritage escape
+</div>
+
+<div class="dest-price">
+<small>starting from</small>
+<strong>ETB 24,000</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="dest-card">
+
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop">
+
+<div class="dest-overlay"></div>
+
+<div class="dest-content">
+
+<div class="dest-tag">ADVENTURE</div>
+
+<div class="dest-title">Danakil</div>
+
+<div class="dest-sub">
+🌋 Volcanoes · Salt lakes · Extreme adventure
+</div>
+
+<div class="dest-price">
+<small>starting from</small>
+<strong>ETB 38,000</strong>
+</div>
+
+</div>
+
+</div>
+
+<div class="dest-card">
+
+<img src="https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?q=80&w=1200&auto=format&fit=crop">
+
+<div class="dest-overlay"></div>
+
+<div class="dest-content">
+
+<div class="dest-tag">NATURE</div>
+
+<div class="dest-title">Simien Mountains</div>
+
+<div class="dest-sub">
+🏔 Hiking · Gelada monkeys · Scenic routes
+</div>
+
+<div class="dest-price">
+<small>starting from</small>
+<strong>ETB 21,000</strong>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- TESTIMONIALS -->
+
+<section>
+
+<div class="section-head">
+
+<div>
+
+<div class="section-label">
+💬 Community stories
+</div>
+
+<h2 class="section-title">
+Built for Ethiopian travelers
+</h2>
+
+<p class="section-sub">
+Real experiences from people exploring Ethiopia smarter with FlowTrip.
+</p>
+
+</div>
+
+</div>
+
+<div class="test-grid">
+
+<div class="test-card">
+
+<div class="stars">★★★★★</div>
+
+<p class="test-text">
+"FlowTrip helped me discover places in Addis I never knew existed.
+The café and cultural recommendations actually matched my style."
+</p>
+
+<div class="test-author">
+
+<div class="avatar">BT</div>
+
+<div>
+<div class="test-name">Bethel T.</div>
+<div class="test-role">
+Addis Ababa · Weekend traveler
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="test-card">
+
+<div class="stars">★★★★★</div>
+
+<p class="test-text">
+"Our Lalibela trip became effortless. The itinerary balanced churches,
+food spots, and rest stops perfectly without wasting time."
+</p>
+
+<div class="test-author">
+
+<div class="avatar">SG</div>
+
+<div>
+<div class="test-name">Samuel G.</div>
+<div class="test-role">
+Bahir Dar · Family traveler
+</div>
+</div>
+
+</div>
+
+</div>
+
+<div class="test-card">
+
+<div class="stars">★★★★★</div>
+
+<p class="test-text">
+"Planning a group trip to the Simien Mountains used to be chaotic.
+FlowTrip organized transportation, routes, and activities in one place."
+</p>
+
+<div class="test-author">
+
+<div class="avatar">HM</div>
+
+<div>
+<div class="test-name">Hanna M.</div>
+<div class="test-role">
+Hawassa · Group organizer
+</div>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FINAL CTA -->
+
+<section class="final-cta">
+
+<div class="cta-box">
+
+<div class="section-label">
+🚀 Start exploring smarter
+</div>
+
+<h2>
+The future of Ethiopian travel starts here
+</h2>
+
+<p>
+Plan faster, discover deeper,
+and experience Ethiopia with real local intelligence.
+</p>
+
+<div class="hero-buttons">
+
+<button class="btn btn-primary">
+Start planning free
+</button>
+
+<button class="btn btn-outline">
+Explore destinations
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer>
+
+<div class="footer-top">
+
+<div>
+
+<div class="logo-text" style="color:white;margin-bottom:14px;">
+FlowTrip
+</div>
+
+<p style="max-width:420px;line-height:1.8;">
+The smartest way to experience Ethiopia —
+adaptive itineraries, local intelligence,
+and modern travel planning built specifically for Ethiopian realities.
+</p>
+
+</div>
+
+<div>
+
+<div class="footer-title">Product</div>
+
+<ul class="footer-links">
+<li><a href="#">AI Planner</a></li>
+<li><a href="#">Destinations</a></li>
+<li><a href="#">Experiences</a></li>
+<li><a href="#">Pricing</a></li>
+</ul>
+
+</div>
+
+<div>
+
+<div class="footer-title">Company</div>
+
+<ul class="footer-links">
+<li><a href="#">About</a></li>
+<li><a href="#">Careers</a></li>
+<li><a href="#">Press</a></li>
+<li><a href="#">Contact</a></li>
+</ul>
+
+</div>
+
+<div>
+
+<div class="footer-title">Resources</div>
+
+<ul class="footer-links">
+<li><a href="#">Travel guides</a></li>
+<li><a href="#">Safety</a></li>
+<li><a href="#">Support</a></li>
+<li><a href="#">Privacy</a></li>
+</ul>
+
+</div>
+
+</div>
+
+<div class="footer-bottom">
+
+<div>
+© 2026 FlowTrip Ethiopia
+</div>
+
+<div>
+Designed for modern Ethiopian travel
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+const nav = document.getElementById('navbar');
+
+window.addEventListener('scroll',()=>{
+
+if(window.scrollY > 20){
+nav.classList.add('nav-scrolled');
+}else{
+nav.classList.remove('nav-scrolled');
+}
+
+});
+
+</script>
+
+</body>
+</html>
